@@ -99,6 +99,13 @@ app.post("/api/owner/", (req, res) => {
         owner: req.body.owner,
         carPlate: req.body.carPlate,
     }
+    const sqlValidation = "Select 1 carPlate from CarPlates Where carPlate = " + data.carPlate;
+    db.run(sqlValidation,"",function(err,result){
+        res.json({
+            "data": data
+
+        })
+    })
     const sql = 'Insert into CarPlates(owner, carPlate) VALUES (?,?)'
     const params = [data.owner, data.carPlate]
     db.run(sql, params, function (err, result) {

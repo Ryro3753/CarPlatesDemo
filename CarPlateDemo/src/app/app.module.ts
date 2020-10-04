@@ -20,6 +20,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
     CommonModule,
     MatPaginatorModule,
     MatSnackBarModule,
+    MatSortModule,
     ConfirmationPopoverModule.forRoot({
       confirmButtonType: 'danger', // set defaults here
     }),
