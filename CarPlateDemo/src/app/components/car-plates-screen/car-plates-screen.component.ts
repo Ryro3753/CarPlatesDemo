@@ -63,7 +63,7 @@ export class CarPlatesScreenComponent implements OnInit {
 
   deleteClick(e, element) {
     this.httpClient.delete('http://localhost:8000/api/owner/' + element.id).subscribe(i => {
-      this.snackBar.open('The car plate is updated');
+      this.snackBar.open('The car plate is deleted');
       this.list();
     })
   }
