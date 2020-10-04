@@ -16,6 +16,7 @@ export class CarPlatesScreenComponent implements OnInit {
 
   displayedColumns : string[] =  ['Owner', 'Car Plate', 'actions'];
   loadedValues : any;
+  search : string;
 
   constructor(readonly httpClient: HttpClient, readonly snackBar: MatSnackBar) { }
 
@@ -24,13 +25,19 @@ export class CarPlatesScreenComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.list();
+    this.list("owner");
   }
 
-  list() {
-    this.httpClient.get('http://localhost:8000/api/owners').subscribe(i => {
+  list(orderBy?) {
+    if(orderBy){
+      this.httpClient.get('http://localhost:8000/api/owners?orderBy=' + orderBy).subscribe(i => {
       this.loadedValues = (<any>i).data;
     })
+    }
+    else{
+    this.httpClient.get('http://localhost:8000/api/owners').subscribe(i => {
+      this.loadedValues = (<any>i).data;
+    })}
   }
 
   
@@ -43,6 +50,13 @@ export class CarPlatesScreenComponent implements OnInit {
     this.httpClient.delete('http://localhost:8000/api/owner/' + element.id).subscribe(i => {
       this.snackBar.open('The car plate is updated');
       this.list();
+    })
+  }
+
+  searchClick(value){
+    this.httpClient.get('http://localhost:8000/api/owners?search=' + value).subscribe(i => {
+      console.log(value);
+      this.loadedValues = (<any>i).data;
     })
   }
 }

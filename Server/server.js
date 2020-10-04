@@ -27,14 +27,15 @@ app.get("/", (req, res, next) => {
     res.json({ "message": "Ok" })
 });
 
-app.get("/api/owners", (req, res) => {
-    const sql = "select id, owner, carPlate from CarPlates"
-    const params = []
 
+app.get("/api/owners", (req, res) => {
+    let sql = "select id, owner, carPlate from CarPlates"
+    let params = []
+    const search = req.query.search;
     // search
-    if (req.params.search) {
-        sql +=" where owner like '%?%' or carPlate like '%?%'";
-        params.push(req.params.search);   
+    if (search) {
+        sql = sql + " where owner like '%"+req.query.search+"%' or carPlate like '%"+req.query.search+"%' ";
+
     }
 
     // for pagination
@@ -45,10 +46,13 @@ app.get("/api/owners", (req, res) => {
     }
 
     // order by
-    if (req.params.orderBy) {
-        sql += " order by " + req.params.orderBy;
+    const orderBy = req.query.orderBy;
 
-        if (req.params.desc) {
+    if (orderBy) {
+        sql += " order by " + req.query.orderBy;
+        const desc = req.query.desc;
+
+        if (desc) {
             sql += " desc"
         }
     }
