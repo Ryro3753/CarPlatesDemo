@@ -1,5 +1,4 @@
 export class CarPlate {
-    id : number
-    ownerName : string
+    owner : string
     carPlate : string
 }

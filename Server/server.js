@@ -1,12 +1,20 @@
 const express = require("express");
-const { detectBufferEncoding } = require("tslint/lib/utils");
 const app = express()
 const db = require("./database.js")
+const cors = require('cors')
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(cors())
 
+app.get('/products/:id', function (req, res, next) {
+    res.json({msg: 'This is CORS-enabled for all origins!'})
+  })
+  
+  app.listen(80, function () {
+    console.log('CORS-enabled web server listening on port 80')
+  })
 
 // Server port
 const HTTP_PORT = 8000
@@ -20,7 +28,7 @@ app.get("/", (req, res, next) => {
 });
 
 app.get("/api/owners", (req, res) => {
-    const sql = "select * from CarPlates"
+    const sql = "select owner, carPlate from CarPlates"
     const params = []
 
     // search
