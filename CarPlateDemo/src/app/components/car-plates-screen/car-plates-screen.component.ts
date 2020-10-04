@@ -3,8 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { CarPlatesAddComponent } from '../car-plates-add/car-plates-add.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { merge } from 'rxjs';
-import { debounceTime, distinctUntilChanged, startWith, tap, delay } from 'rxjs/operators';
-import { MatPaginator } from '@angular/material/paginator';
+import { tap } from 'rxjs/operators';
 import { MatSort } from '@angular/material/sort';
 
 @Component({
@@ -15,8 +14,6 @@ import { MatSort } from '@angular/material/sort';
 export class CarPlatesScreenComponent implements OnInit {
 
   @ViewChild(CarPlatesAddComponent) dialogComponent: CarPlatesAddComponent;
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -29,10 +26,7 @@ export class CarPlatesScreenComponent implements OnInit {
   constructor(readonly httpClient: HttpClient, readonly snackBar: MatSnackBar) { }
 
   ngAfterViewInit() {
-
-    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
-
-    merge(this.sort.sortChange, this.paginator.page)
+    merge(this.sort.sortChange) // future use for merge with paginator
       .pipe(
         tap(() => this.list())
       )
@@ -55,7 +49,6 @@ export class CarPlatesScreenComponent implements OnInit {
       desc = true
       url += '&desc=1'
     }
-
 
     this.httpClient.get(url).subscribe(i => {
       this.loadedValues = (<any>i).data;
