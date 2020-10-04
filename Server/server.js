@@ -28,7 +28,7 @@ app.get("/", (req, res, next) => {
 });
 
 app.get("/api/owners", (req, res) => {
-    const sql = "select owner, carPlate from CarPlates"
+    const sql = "select id, owner, carPlate from CarPlates"
     const params = []
 
     // search

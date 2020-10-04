@@ -1,0 +1,22 @@
+<div mat-dialog-content>
+    <mat-form-field>
+        <mat-label>Owner's Name</mat-label>
+        <input matInput [(ngModel)]="data.owner">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Car Plate</mat-label>
+        <input matInput [(ngModel)]="data.carPlate">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button color="primary" (click)="onNoClick()">Cancel</button>
+    <button mat-button color="primary" (click)="addClick()">
+        <span *ngIf="data.id && data.id > 0;else elseAddTemplate">
+            Update
+        </span>
+        <ng-template #elseAddTemplate>
+            Add
+        </ng-template>
+
+    </button>
+</div>

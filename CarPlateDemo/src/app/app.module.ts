@@ -9,14 +9,25 @@ import { MatTableModule } from '@angular/material/table'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatButtonModule } from '@angular/material/button';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import {  HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { CarPlatesAddComponent, CarPlatesAddDialog } from './components/car-plates-add/car-plates-add.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import {  MatPaginatorModule } from '@angular/material/paginator';
 
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
     AppComponent,
     CarPlatesScreenComponent,
-    NavbarComponent
+    NavbarComponent,
+    CarPlatesAddComponent,
+    CarPlatesAddComponent,
+    CarPlatesAddDialog
   ],
   imports: [
     MatTableModule,
@@ -25,7 +36,14 @@ import {  HttpClientModule } from '@angular/common/http';
     BrowserModule,
     RoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatInputModule,
+    FormsModule,
+    CommonModule,
+    MatPaginatorModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
