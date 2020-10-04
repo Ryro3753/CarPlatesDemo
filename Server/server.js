@@ -22,6 +22,29 @@ app.get("/", (req, res, next) => {
 app.get("/api/owners", (req, res) => {
     const sql = "select * from CarPlates"
     const params = []
+
+    // search
+    if (req.params.search) {
+        sql +=" where owner like '%?%' or carPlate like '%?%'";
+        params.push(req.params.search);   
+    }
+
+    // for pagination
+    if (req.params.skip && req.params.take) {
+        sql += " limit ? skip ?"
+        params.push(req.params.skip)
+        params.push(req.params.take)
+    }
+
+    // order by
+    if (req.params.orderBy) {
+        sql += " order by " + req.params.orderBy;
+
+        if (req.params.desc) {
+            sql += " desc"
+        }
+    }
+
     db.all(sql, params, (err, rows) => {
         if (err) {
             res.status(400).json({ "error": err.message });
